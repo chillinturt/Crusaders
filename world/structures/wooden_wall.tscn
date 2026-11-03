@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/structure.gd" id="1_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall"]
+size = Vector3(4, 3, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall"]
+size = Vector3(4, 3, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wood"]
+albedo_color = Color(0.58, 0.42, 0.26, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_post"]
+size = Vector3(0.25, 3, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_post"]
+albedo_color = Color(0.4, 0.28, 0.16, 1)
+roughness = 0.9
+
+[node name="WoodenWall" type="StaticBody3D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_wall")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("BoxMesh_wall")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="PostLeft" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.875, 1.5, 0)
+mesh = SubResource("BoxMesh_post")
+surface_material_override/0 = SubResource("StandardMaterial3D_post")
+
+[node name="PostRight" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.875, 1.5, 0)
+mesh = SubResource("BoxMesh_post")
+surface_material_override/0 = SubResource("StandardMaterial3D_post")

@@ -1,0 +1,41 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Crusaders"
+run/main_scene="res://level/main.tscn"
+config/features=PackedStringArray("4.7", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[dotnet]
+
+project/assembly_name="Crusaders"
+
+[layer_names]
+
+3d_physics/layer_1="world"
+3d_physics/layer_2="characters"
+3d_physics/layer_3="items"
+3d_physics/layer_4="projectiles"
+3d_physics/layer_5="boundary"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"

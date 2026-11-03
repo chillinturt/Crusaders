@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Biome" format=3 uid="uid://nex3gyvh5npw"]
+
+[ext_resource type="Script" uid="uid://c671ucc2g3jk8" path="res://world/biome.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://world/cactus.tscn" id="2_tree"]
+
+[resource]
+script = ExtResource("1_script")
+display_name = "Desert"
+ground_a = Color(0.84, 0.72, 0.5, 1)
+ground_b = Color(0.78, 0.63, 0.42, 1)
+dirt = Color(0.66, 0.5, 0.34, 1)
+rock = Color(0.66, 0.46, 0.33, 1)
+peak = Color(0.7, 0.5, 0.36, 1)
+hill_height = 7.0
+tree_scene = ExtResource("2_tree")
+forest_threshold = 0.3
+sky_top = Color(0.35, 0.55, 0.8, 1)
+sky_horizon = Color(0.88, 0.82, 0.7, 1)
+fog_color = Color(0.9, 0.82, 0.68, 1)
+fog_density = 0.0018
+sun_color = Color(1, 0.92, 0.78, 1)
+wall_hue = Vector2(0.07, 0.11)
+wall_saturation = 0.3
+wall_value = 0.72

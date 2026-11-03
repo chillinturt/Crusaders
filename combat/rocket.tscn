@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://combat/projectile.gd" id="1_script"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rocket"]
+top_radius = 0.07
+bottom_radius = 0.07
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rocket"]
+albedo_color = Color(0.35, 0.4, 0.25, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_flame"]
+radius = 0.09
+height = 0.18
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_flame"]
+shading_mode = 0
+albedo_color = Color(1, 0.6, 0.2, 1)
+
+[node name="Rocket" type="Node3D"]
+script = ExtResource("1_script")
+speed = 28.0
+damage = 90.0
+lifetime = 8.0
+explosion_radius = 4.0
+explosion_force = 13.0
+deflectable = false
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_rocket")
+surface_material_override/0 = SubResource("StandardMaterial3D_rocket")
+
+[node name="Flame" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.3)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_flame")
+surface_material_override/0 = SubResource("StandardMaterial3D_flame")
+
+[node name="Light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.3)
+light_color = Color(1, 0.6, 0.3, 1)
+light_energy = 2.0
+omni_range = 3.0

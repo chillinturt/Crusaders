@@ -1,0 +1,453 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://enemy/dragoon.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://combat/spit.tscn" id="3_spit"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.5
+height = 1.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
+resource_local_to_scene = true
+albedo_color = Color(0.78, 0.6, 0.28, 1)
+metallic = 0.8
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_steel"]
+albedo_color = Color(0.22, 0.23, 0.27, 1)
+metallic = 0.7
+roughness = 0.45
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glow"]
+albedo_color = Color(0.3, 0.75, 1, 1)
+emission_enabled = true
+emission = Color(0.25, 0.65, 1, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eyes"]
+resource_local_to_scene = true
+albedo_color = Color(1, 0.9, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.8, 0.1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_orb"]
+shading_mode = 0
+albedo_color = Color(0.55, 1, 0.3, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_body"]
+radius = 0.55
+height = 1.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_carapace"]
+size = Vector3(1.15, 0.2, 1.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_plate"]
+size = Vector3(0.18, 0.6, 1.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cowl"]
+size = Vector3(0.95, 0.42, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_skirt"]
+size = Vector3(1.0, 0.16, 1.1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_core"]
+radius = 0.3
+height = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_eyes"]
+size = Vector3(0.6, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_turret"]
+size = Vector3(0.6, 0.32, 0.75)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_barrel"]
+top_radius = 0.075
+bottom_radius = 0.1
+height = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_thigh"]
+size = Vector3(0.24, 1, 0.24)
+
+[sub_resource type="BoxMesh" id="BoxMesh_thigh_armor"]
+size = Vector3(0.34, 1, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_shin"]
+size = Vector3(0.2, 1, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_shin_guard"]
+size = Vector3(0.3, 1, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_piston"]
+size = Vector3(0.12, 1, 0.12)
+
+[sub_resource type="SphereMesh" id="SphereMesh_knee"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_kneecap"]
+size = Vector3(0.36, 0.14, 0.36)
+
+[sub_resource type="SphereMesh" id="SphereMesh_hip"]
+radius = 0.22
+height = 0.44
+
+[sub_resource type="BoxMesh" id="BoxMesh_foot"]
+size = Vector3(0.46, 0.14, 0.56)
+
+[sub_resource type="BoxMesh" id="BoxMesh_foot_glow"]
+size = Vector3(0.3, 0.03, 0.4)
+
+[sub_resource type="SphereMesh" id="SphereMesh_orb"]
+radius = 0.3
+height = 0.6
+
+[node name="Spitter" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 19
+script = ExtResource("1_script")
+reward = 7
+projectile_scene = ExtResource("3_spit")
+max_health = 50.0
+move_speed = 4.5
+detection_range = 26.0
+lose_range = 45.0
+damage = 20.0
+attack_range = 20.0
+windup_time = 0.9
+recover_time = 1.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.28, 0)
+scale = Vector3(1.4, 0.95, 1.45)
+mesh = SubResource("SphereMesh_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Carapace" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.72, 0.05)
+rotation_degrees = Vector3(-5, 0, 0)
+mesh = SubResource("BoxMesh_carapace")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Cowl" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.38, -0.78)
+rotation_degrees = Vector3(12, 0, 0)
+mesh = SubResource("BoxMesh_cowl")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Skirt" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.92, 0)
+mesh = SubResource("BoxMesh_skirt")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="PlateL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.78, 1.32, 0)
+rotation_degrees = Vector3(0, 0, -15)
+mesh = SubResource("BoxMesh_plate")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="PlateR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.78, 1.32, 0)
+rotation_degrees = Vector3(0, 0, 15)
+mesh = SubResource("BoxMesh_plate")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Core" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.95, 0.35)
+scale = Vector3(1.2, 0.6, 1.2)
+mesh = SubResource("SphereMesh_core")
+surface_material_override/0 = SubResource("StandardMaterial3D_glow")
+
+[node name="CoreLight" type="OmniLight3D" parent="Visual"]
+position = Vector3(0, 0.75, 0.2)
+light_color = Color(0.3, 0.7, 1, 1)
+light_energy = 0.8
+omni_range = 2.5
+
+[node name="Eyes" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.45, -0.89)
+rotation_degrees = Vector3(12, 0, 0)
+mesh = SubResource("BoxMesh_eyes")
+surface_material_override/0 = SubResource("StandardMaterial3D_eyes")
+
+[node name="Turret" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.98, -0.05)
+mesh = SubResource("BoxMesh_turret")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="BarrelL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.15, 2.0, -0.7)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("CylinderMesh_barrel")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="BarrelR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.15, 2.0, -0.7)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("CylinderMesh_barrel")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="ThighFL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.775, 1.325, -0.7)
+rotation_degrees = Vector3(62.512, -138.013, 0)
+scale = Vector3(1, 0.758, 1)
+mesh = SubResource("BoxMesh_thigh")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="ThighArmorFL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.775, 1.325, -0.7)
+rotation_degrees = Vector3(62.512, -138.013, 0)
+scale = Vector3(1, 0.531, 1)
+mesh = SubResource("BoxMesh_thigh_armor")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="ShinFL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.075, 0.81, -1.035)
+rotation_degrees = Vector3(170.67, -138.576, 0)
+scale = Vector3(1, 1.398, 1)
+mesh = SubResource("BoxMesh_shin")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="ShinGuardFL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.053, 1.017, -1.01)
+rotation_degrees = Vector3(170.67, -138.576, 0)
+scale = Vector3(1, 0.755, 1)
+mesh = SubResource("BoxMesh_shin_guard")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="PistonFL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.11, 0.486, -1.075)
+rotation_degrees = Vector3(170.67, -138.576, 0)
+scale = Vector3(1, 0.322, 1)
+mesh = SubResource("BoxMesh_piston")
+surface_material_override/0 = SubResource("StandardMaterial3D_glow")
+
+[node name="KneeFL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1, 1.5, -0.95)
+mesh = SubResource("SphereMesh_knee")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="KneeCapFL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.08, 1.62, -1.03)
+rotation_degrees = Vector3(0, -135, 0)
+mesh = SubResource("BoxMesh_kneecap")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="HipFL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.55, 1.15, -0.45)
+mesh = SubResource("SphereMesh_hip")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="FootFL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.15, 0.07, -1.12)
+rotation_degrees = Vector3(0, -135, 0)
+mesh = SubResource("BoxMesh_foot")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="FootGlowFL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.15, 0.15, -1.12)
+rotation_degrees = Vector3(0, -135, 0)
+mesh = SubResource("BoxMesh_foot_glow")
+surface_material_override/0 = SubResource("StandardMaterial3D_glow")
+
+[node name="ThighFR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.775, 1.325, -0.7)
+rotation_degrees = Vector3(62.512, 138.013, 0)
+scale = Vector3(1, 0.758, 1)
+mesh = SubResource("BoxMesh_thigh")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="ThighArmorFR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.775, 1.325, -0.7)
+rotation_degrees = Vector3(62.512, 138.013, 0)
+scale = Vector3(1, 0.531, 1)
+mesh = SubResource("BoxMesh_thigh_armor")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="ShinFR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.075, 0.81, -1.035)
+rotation_degrees = Vector3(170.67, 138.576, 0)
+scale = Vector3(1, 1.398, 1)
+mesh = SubResource("BoxMesh_shin")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="ShinGuardFR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.053, 1.017, -1.01)
+rotation_degrees = Vector3(170.67, 138.576, 0)
+scale = Vector3(1, 0.755, 1)
+mesh = SubResource("BoxMesh_shin_guard")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="PistonFR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.11, 0.486, -1.075)
+rotation_degrees = Vector3(170.67, 138.576, 0)
+scale = Vector3(1, 0.322, 1)
+mesh = SubResource("BoxMesh_piston")
+surface_material_override/0 = SubResource("StandardMaterial3D_glow")
+
+[node name="KneeFR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1, 1.5, -0.95)
+mesh = SubResource("SphereMesh_knee")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="KneeCapFR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.08, 1.62, -1.03)
+rotation_degrees = Vector3(0, 135, 0)
+mesh = SubResource("BoxMesh_kneecap")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="HipFR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.55, 1.15, -0.45)
+mesh = SubResource("SphereMesh_hip")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="FootFR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.15, 0.07, -1.12)
+rotation_degrees = Vector3(0, 135, 0)
+mesh = SubResource("BoxMesh_foot")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="FootGlowFR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.15, 0.15, -1.12)
+rotation_degrees = Vector3(0, 135, 0)
+mesh = SubResource("BoxMesh_foot_glow")
+surface_material_override/0 = SubResource("StandardMaterial3D_glow")
+
+[node name="ThighBL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.775, 1.325, 0.7)
+rotation_degrees = Vector3(62.512, -41.987, 0)
+scale = Vector3(1, 0.758, 1)
+mesh = SubResource("BoxMesh_thigh")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="ThighArmorBL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.775, 1.325, 0.7)
+rotation_degrees = Vector3(62.512, -41.987, 0)
+scale = Vector3(1, 0.531, 1)
+mesh = SubResource("BoxMesh_thigh_armor")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="ShinBL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.075, 0.81, 1.035)
+rotation_degrees = Vector3(170.67, -41.424, 0)
+scale = Vector3(1, 1.398, 1)
+mesh = SubResource("BoxMesh_shin")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="ShinGuardBL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.053, 1.017, 1.01)
+rotation_degrees = Vector3(170.67, -41.424, 0)
+scale = Vector3(1, 0.755, 1)
+mesh = SubResource("BoxMesh_shin_guard")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="PistonBL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.11, 0.486, 1.075)
+rotation_degrees = Vector3(170.67, -41.424, 0)
+scale = Vector3(1, 0.322, 1)
+mesh = SubResource("BoxMesh_piston")
+surface_material_override/0 = SubResource("StandardMaterial3D_glow")
+
+[node name="KneeBL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1, 1.5, 0.95)
+mesh = SubResource("SphereMesh_knee")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="KneeCapBL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.08, 1.62, 1.03)
+rotation_degrees = Vector3(0, -45, 0)
+mesh = SubResource("BoxMesh_kneecap")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="HipBL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.55, 1.15, 0.45)
+mesh = SubResource("SphereMesh_hip")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="FootBL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.15, 0.07, 1.12)
+rotation_degrees = Vector3(0, -45, 0)
+mesh = SubResource("BoxMesh_foot")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="FootGlowBL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-1.15, 0.15, 1.12)
+rotation_degrees = Vector3(0, -45, 0)
+mesh = SubResource("BoxMesh_foot_glow")
+surface_material_override/0 = SubResource("StandardMaterial3D_glow")
+
+[node name="ThighBR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.775, 1.325, 0.7)
+rotation_degrees = Vector3(62.512, 41.987, 0)
+scale = Vector3(1, 0.758, 1)
+mesh = SubResource("BoxMesh_thigh")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="ThighArmorBR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.775, 1.325, 0.7)
+rotation_degrees = Vector3(62.512, 41.987, 0)
+scale = Vector3(1, 0.531, 1)
+mesh = SubResource("BoxMesh_thigh_armor")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="ShinBR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.075, 0.81, 1.035)
+rotation_degrees = Vector3(170.67, 41.424, 0)
+scale = Vector3(1, 1.398, 1)
+mesh = SubResource("BoxMesh_shin")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="ShinGuardBR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.053, 1.017, 1.01)
+rotation_degrees = Vector3(170.67, 41.424, 0)
+scale = Vector3(1, 0.755, 1)
+mesh = SubResource("BoxMesh_shin_guard")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="PistonBR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.11, 0.486, 1.075)
+rotation_degrees = Vector3(170.67, 41.424, 0)
+scale = Vector3(1, 0.322, 1)
+mesh = SubResource("BoxMesh_piston")
+surface_material_override/0 = SubResource("StandardMaterial3D_glow")
+
+[node name="KneeBR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1, 1.5, 0.95)
+mesh = SubResource("SphereMesh_knee")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="KneeCapBR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.08, 1.62, 1.03)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("BoxMesh_kneecap")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="HipBR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.55, 1.15, 0.45)
+mesh = SubResource("SphereMesh_hip")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="FootBR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.15, 0.07, 1.12)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("BoxMesh_foot")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="FootGlowBR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(1.15, 0.15, 1.12)
+rotation_degrees = Vector3(0, 45, 0)
+mesh = SubResource("BoxMesh_foot_glow")
+surface_material_override/0 = SubResource("StandardMaterial3D_glow")
+
+
+[node name="Orb" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0, -1.2)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_orb")
+surface_material_override/0 = SubResource("StandardMaterial3D_orb")

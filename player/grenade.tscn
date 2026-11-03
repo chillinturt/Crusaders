@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://player/grenade.gd" id="1_script"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bouncy"]
+friction = 0.8
+bounce = 0.35
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_grenade"]
+radius = 0.12
+
+[sub_resource type="SphereMesh" id="SphereMesh_grenade"]
+radius = 0.12
+height = 0.24
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grenade"]
+albedo_color = Color(0.25, 0.32, 0.18, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_band"]
+size = Vector3(0.26, 0.05, 0.26)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_band"]
+albedo_color = Color(1, 0.2, 0.1, 1)
+emission_enabled = true
+emission = Color(1, 0.2, 0.1, 1)
+emission_energy_multiplier = 3.0
+
+[node name="Grenade" type="RigidBody3D"]
+collision_layer = 0
+collision_mask = 3
+mass = 0.4
+physics_material_override = SubResource("PhysicsMaterial_bouncy")
+continuous_cd = true
+linear_damp = 0.3
+angular_damp = 2.0
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_grenade")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_grenade")
+surface_material_override/0 = SubResource("StandardMaterial3D_grenade")
+
+[node name="Band" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_band")
+surface_material_override/0 = SubResource("StandardMaterial3D_band")

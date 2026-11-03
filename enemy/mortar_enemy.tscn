@@ -1,0 +1,298 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://enemy/artillery_golem.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://combat/mortar_shell.tscn" id="2_shell"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.55
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
+resource_local_to_scene = true
+albedo_color = Color(0.46, 0.43, 0.4, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_brass"]
+albedo_color = Color(0.78, 0.56, 0.22, 1)
+metallic = 0.85
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_steel"]
+albedo_color = Color(0.2, 0.21, 0.25, 1)
+metallic = 0.8
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rune"]
+albedo_color = Color(0.4, 0.95, 1, 1)
+emission_enabled = true
+emission = Color(0.3, 0.85, 1, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crystal"]
+resource_local_to_scene = true
+albedo_color = Color(0.85, 0.35, 1, 1)
+emission_enabled = true
+emission = Color(0.75, 0.25, 1, 1)
+emission_energy_multiplier = 2.0
+roughness = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eyes"]
+resource_local_to_scene = true
+albedo_color = Color(1, 0.9, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.8, 0.1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_orb"]
+shading_mode = 0
+albedo_color = Color(1, 0.5, 0.15, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_torso"]
+size = Vector3(1.2, 0.9, 1.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_band"]
+size = Vector3(1.26, 0.12, 1.06)
+
+[sub_resource type="BoxMesh" id="BoxMesh_head"]
+size = Vector3(0.48, 0.4, 0.46)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eyes"]
+size = Vector3(0.36, 0.07, 0.04)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rune_v"]
+size = Vector3(0.06, 0.5, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rune_h"]
+size = Vector3(0.34, 0.06, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_shoulder_plate"]
+size = Vector3(0.5, 0.18, 0.55)
+
+[sub_resource type="BoxMesh" id="BoxMesh_arm"]
+size = Vector3(0.3, 1.0, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fist"]
+size = Vector3(0.42, 0.3, 0.42)
+
+[sub_resource type="BoxMesh" id="BoxMesh_leg"]
+size = Vector3(0.34, 0.7, 0.38)
+
+[sub_resource type="BoxMesh" id="BoxMesh_foot"]
+size = Vector3(0.4, 0.12, 0.52)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mount"]
+top_radius = 0.3
+bottom_radius = 0.38
+height = 0.25
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_barrel"]
+top_radius = 0.2
+bottom_radius = 0.26
+height = 1.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_coil"]
+inner_radius = 0.24
+outer_radius = 0.33
+
+[sub_resource type="PrismMesh" id="PrismMesh_crystal"]
+size = Vector3(0.32, 0.38, 0.32)
+
+[sub_resource type="TorusMesh" id="TorusMesh_halo"]
+inner_radius = 0.42
+outer_radius = 0.47
+
+[sub_resource type="SphereMesh" id="SphereMesh_orb"]
+radius = 0.3
+height = 0.6
+
+[node name="Mortar" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 19
+script = ExtResource("1_script")
+needs_clear_shot = false
+projectile_scene = ExtResource("2_shell")
+preferred_min_range = 14.0
+preferred_max_range = 26.0
+max_health = 70.0
+move_speed = 3.8
+reward = 10
+detection_range = 34.0
+lose_range = 55.0
+damage = 28.0
+attack_range = 34.0
+windup_time = 1.1
+recover_time = 2.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.15, 0)
+rotation_degrees = Vector3(-14, 0, 0)
+mesh = SubResource("BoxMesh_torso")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Band" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.85, 0.05)
+rotation_degrees = Vector3(-14, 0, 0)
+mesh = SubResource("BoxMesh_band")
+surface_material_override/0 = SubResource("StandardMaterial3D_brass")
+
+[node name="BandTop" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.48, -0.06)
+rotation_degrees = Vector3(-14, 0, 0)
+mesh = SubResource("BoxMesh_band")
+surface_material_override/0 = SubResource("StandardMaterial3D_brass")
+
+[node name="RuneV" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.12, -0.6)
+rotation_degrees = Vector3(-14, 0, 0)
+mesh = SubResource("BoxMesh_rune_v")
+surface_material_override/0 = SubResource("StandardMaterial3D_rune")
+
+[node name="RuneH" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.2, -0.62)
+rotation_degrees = Vector3(-14, 0, 0)
+mesh = SubResource("BoxMesh_rune_h")
+surface_material_override/0 = SubResource("StandardMaterial3D_rune")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.3, -0.66)
+mesh = SubResource("BoxMesh_head")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Eyes" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.33, -0.9)
+mesh = SubResource("BoxMesh_eyes")
+surface_material_override/0 = SubResource("StandardMaterial3D_eyes")
+
+[node name="PlateL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.7, 1.55, -0.2)
+rotation_degrees = Vector3(0, 0, 20)
+mesh = SubResource("BoxMesh_shoulder_plate")
+surface_material_override/0 = SubResource("StandardMaterial3D_brass")
+
+[node name="PlateR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.7, 1.55, -0.2)
+rotation_degrees = Vector3(0, 0, -20)
+mesh = SubResource("BoxMesh_shoulder_plate")
+surface_material_override/0 = SubResource("StandardMaterial3D_brass")
+
+[node name="ArmL" type="Node3D" parent="Visual"]
+position = Vector3(-0.74, 1.38, -0.22)
+rotation = Vector3(0.25, 0, 0)
+
+[node name="Arm" type="MeshInstance3D" parent="Visual/ArmL"]
+position = Vector3(0, -0.5, 0)
+mesh = SubResource("BoxMesh_arm")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Fist" type="MeshInstance3D" parent="Visual/ArmL"]
+position = Vector3(0, -1.08, 0)
+mesh = SubResource("BoxMesh_fist")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="ArmR" type="Node3D" parent="Visual"]
+position = Vector3(0.74, 1.38, -0.22)
+rotation = Vector3(0.25, 0, 0)
+
+[node name="Arm" type="MeshInstance3D" parent="Visual/ArmR"]
+position = Vector3(0, -0.5, 0)
+mesh = SubResource("BoxMesh_arm")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Fist" type="MeshInstance3D" parent="Visual/ArmR"]
+position = Vector3(0, -1.08, 0)
+mesh = SubResource("BoxMesh_fist")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="HipL" type="Node3D" parent="Visual"]
+position = Vector3(-0.34, 0.75, 0.18)
+
+[node name="Leg" type="MeshInstance3D" parent="Visual/HipL"]
+position = Vector3(0, -0.37, 0)
+mesh = SubResource("BoxMesh_leg")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Foot" type="MeshInstance3D" parent="Visual/HipL"]
+position = Vector3(0, -0.69, -0.06)
+mesh = SubResource("BoxMesh_foot")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="HipR" type="Node3D" parent="Visual"]
+position = Vector3(0.34, 0.75, 0.18)
+
+[node name="Leg" type="MeshInstance3D" parent="Visual/HipR"]
+position = Vector3(0, -0.37, 0)
+mesh = SubResource("BoxMesh_leg")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Foot" type="MeshInstance3D" parent="Visual/HipR"]
+position = Vector3(0, -0.69, -0.06)
+mesh = SubResource("BoxMesh_foot")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="Gun" type="Node3D" parent="Visual"]
+position = Vector3(0, 1.62, 0.22)
+
+[node name="Mount" type="MeshInstance3D" parent="Visual/Gun"]
+mesh = SubResource("CylinderMesh_mount")
+surface_material_override/0 = SubResource("StandardMaterial3D_brass")
+
+[node name="Barrel" type="MeshInstance3D" parent="Visual/Gun"]
+position = Vector3(0, 0.41, -0.29)
+rotation_degrees = Vector3(-35, 0, 0)
+mesh = SubResource("CylinderMesh_barrel")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="Coil1" type="MeshInstance3D" parent="Visual/Gun"]
+position = Vector3(0, 0.25, -0.17)
+rotation_degrees = Vector3(-35, 0, 0)
+mesh = SubResource("TorusMesh_coil")
+surface_material_override/0 = SubResource("StandardMaterial3D_rune")
+
+[node name="Coil2" type="MeshInstance3D" parent="Visual/Gun"]
+position = Vector3(0, 0.53, -0.37)
+rotation_degrees = Vector3(-35, 0, 0)
+mesh = SubResource("TorusMesh_coil")
+surface_material_override/0 = SubResource("StandardMaterial3D_rune")
+
+[node name="Coil3" type="MeshInstance3D" parent="Visual/Gun"]
+position = Vector3(0, 0.78, -0.55)
+rotation_degrees = Vector3(-35, 0, 0)
+scale = Vector3(0.9, 1, 0.9)
+mesh = SubResource("TorusMesh_coil")
+surface_material_override/0 = SubResource("StandardMaterial3D_brass")
+
+[node name="Orb" type="MeshInstance3D" parent="Visual/Gun"]
+position = Vector3(0, 0.92, -0.64)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_orb")
+surface_material_override/0 = SubResource("StandardMaterial3D_orb")
+
+[node name="Crystal" type="Node3D" parent="Visual"]
+position = Vector3(0, 2.3, 0.6)
+
+[node name="Top" type="MeshInstance3D" parent="Visual/Crystal"]
+position = Vector3(0, 0.19, 0)
+mesh = SubResource("PrismMesh_crystal")
+surface_material_override/0 = SubResource("StandardMaterial3D_crystal")
+
+[node name="Bottom" type="MeshInstance3D" parent="Visual/Crystal"]
+position = Vector3(0, -0.19, 0)
+rotation_degrees = Vector3(180, 0, 0)
+mesh = SubResource("PrismMesh_crystal")
+surface_material_override/0 = SubResource("StandardMaterial3D_crystal")
+
+[node name="Halo" type="MeshInstance3D" parent="Visual/Crystal"]
+rotation_degrees = Vector3(70, 0, 0)
+mesh = SubResource("TorusMesh_halo")
+surface_material_override/0 = SubResource("StandardMaterial3D_rune")
+
+[node name="Light" type="OmniLight3D" parent="Visual/Crystal"]
+light_color = Color(0.75, 0.35, 1, 1)
+light_energy = 0.8
+omni_range = 3.0

@@ -1,0 +1,266 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://enemy/gyrocopter.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://combat/spit.tscn" id="3_spit"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_body"]
+radius = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
+resource_local_to_scene = true
+albedo_color = Color(0.8, 0.58, 0.25, 1)
+metallic = 0.85
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_copper"]
+albedo_color = Color(0.62, 0.32, 0.18, 1)
+metallic = 0.85
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iron"]
+albedo_color = Color(0.17, 0.17, 0.19, 1)
+metallic = 0.7
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wood"]
+albedo_color = Color(0.42, 0.27, 0.15, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass"]
+transparency = 1
+albedo_color = Color(0.55, 0.85, 0.9, 0.45)
+metallic = 0.3
+roughness = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eyes"]
+resource_local_to_scene = true
+albedo_color = Color(1, 0.9, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.8, 0.1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_orb"]
+shading_mode = 0
+albedo_color = Color(0.55, 1, 0.3, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hull"]
+top_radius = 0.34
+bottom_radius = 0.3
+height = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_nose"]
+radius = 0.34
+height = 0.68
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_band"]
+top_radius = 0.36
+bottom_radius = 0.36
+height = 0.07
+
+[sub_resource type="SphereMesh" id="SphereMesh_dome"]
+radius = 0.27
+height = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_lamp"]
+size = Vector3(0.24, 0.08, 0.05)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mast"]
+top_radius = 0.05
+bottom_radius = 0.08
+height = 0.35
+
+[sub_resource type="SphereMesh" id="SphereMesh_hub"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_blade"]
+size = Vector3(2.4, 0.03, 0.16)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_boom"]
+top_radius = 0.06
+bottom_radius = 0.11
+height = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_fin"]
+size = Vector3(0.04, 0.4, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tail_blade"]
+size = Vector3(0.03, 0.6, 0.08)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_stack"]
+top_radius = 0.08
+bottom_radius = 0.06
+height = 0.45
+
+[sub_resource type="BoxMesh" id="BoxMesh_skid"]
+size = Vector3(0.05, 0.05, 1.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_strut"]
+size = Vector3(0.04, 0.3, 0.04)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_barrel"]
+top_radius = 0.1
+bottom_radius = 0.06
+height = 0.6
+
+[sub_resource type="SphereMesh" id="SphereMesh_orb"]
+radius = 0.25
+height = 0.5
+
+[node name="Gyrocopter" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 19
+script = ExtResource("1_script")
+reward = 9
+flying = true
+hover_height = 6.0
+hover_above_target = 4.0
+lift_speed = 6.0
+projectile_scene = ExtResource("3_spit")
+preferred_min_range = 9.0
+preferred_max_range = 16.0
+max_health = 40.0
+move_speed = 6.5
+wander_speed = 2.2
+acceleration = 18.0
+detection_range = 30.0
+lose_range = 55.0
+eye_height = 0.5
+damage = 14.0
+attack_range = 24.0
+windup_time = 0.8
+recover_time = 1.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("SphereShape3D_body")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.6, 0.05)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("CylinderMesh_hull")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Nose" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.6, -0.45)
+mesh = SubResource("SphereMesh_nose")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="BandFront" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.6, -0.3)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("CylinderMesh_band")
+surface_material_override/0 = SubResource("StandardMaterial3D_copper")
+
+[node name="BandBack" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.6, 0.4)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("CylinderMesh_band")
+surface_material_override/0 = SubResource("StandardMaterial3D_copper")
+
+[node name="Dome" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.86, -0.25)
+mesh = SubResource("SphereMesh_dome")
+surface_material_override/0 = SubResource("StandardMaterial3D_glass")
+
+[node name="Eyes" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.66, -0.78)
+mesh = SubResource("BoxMesh_lamp")
+surface_material_override/0 = SubResource("StandardMaterial3D_eyes")
+
+[node name="Mast" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.08, 0.08)
+mesh = SubResource("CylinderMesh_mast")
+surface_material_override/0 = SubResource("StandardMaterial3D_iron")
+
+[node name="Rotor" type="Node3D" parent="Visual"]
+position = Vector3(0, 1.27, 0.08)
+
+[node name="Hub" type="MeshInstance3D" parent="Visual/Rotor"]
+mesh = SubResource("SphereMesh_hub")
+surface_material_override/0 = SubResource("StandardMaterial3D_copper")
+
+[node name="BladeA" type="MeshInstance3D" parent="Visual/Rotor"]
+rotation_degrees = Vector3(6, 0, 0)
+mesh = SubResource("BoxMesh_blade")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="BladeB" type="MeshInstance3D" parent="Visual/Rotor"]
+rotation_degrees = Vector3(0, 90, 6)
+mesh = SubResource("BoxMesh_blade")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Boom" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.68, 0.95)
+rotation_degrees = Vector3(80, 0, 0)
+mesh = SubResource("CylinderMesh_boom")
+surface_material_override/0 = SubResource("StandardMaterial3D_copper")
+
+[node name="Fin" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.88, 1.4)
+mesh = SubResource("BoxMesh_fin")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="TailRotor" type="Node3D" parent="Visual"]
+position = Vector3(0.07, 0.8, 1.42)
+
+[node name="Blade" type="MeshInstance3D" parent="Visual/TailRotor"]
+mesh = SubResource("BoxMesh_tail_blade")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Stack" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.22, 1.0, 0.35)
+rotation_degrees = Vector3(-10, 0, 0)
+mesh = SubResource("CylinderMesh_stack")
+surface_material_override/0 = SubResource("StandardMaterial3D_iron")
+
+[node name="SkidL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.3, 0.14, 0)
+mesh = SubResource("BoxMesh_skid")
+surface_material_override/0 = SubResource("StandardMaterial3D_iron")
+
+[node name="SkidR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.3, 0.14, 0)
+mesh = SubResource("BoxMesh_skid")
+surface_material_override/0 = SubResource("StandardMaterial3D_iron")
+
+[node name="StrutFL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.27, 0.3, -0.25)
+rotation_degrees = Vector3(0, 0, -15)
+mesh = SubResource("BoxMesh_strut")
+surface_material_override/0 = SubResource("StandardMaterial3D_iron")
+
+[node name="StrutFR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.27, 0.3, -0.25)
+rotation_degrees = Vector3(0, 0, 15)
+mesh = SubResource("BoxMesh_strut")
+surface_material_override/0 = SubResource("StandardMaterial3D_iron")
+
+[node name="StrutBL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.27, 0.3, 0.25)
+rotation_degrees = Vector3(0, 0, -15)
+mesh = SubResource("BoxMesh_strut")
+surface_material_override/0 = SubResource("StandardMaterial3D_iron")
+
+[node name="StrutBR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.27, 0.3, 0.25)
+rotation_degrees = Vector3(0, 0, 15)
+mesh = SubResource("BoxMesh_strut")
+surface_material_override/0 = SubResource("StandardMaterial3D_iron")
+
+[node name="Gun" type="Node3D" parent="Visual"]
+position = Vector3(0, 0.3, -0.45)
+
+[node name="Barrel" type="MeshInstance3D" parent="Visual/Gun"]
+position = Vector3(0, 0, -0.25)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("CylinderMesh_barrel")
+surface_material_override/0 = SubResource("StandardMaterial3D_copper")
+
+[node name="Orb" type="MeshInstance3D" parent="Visual/Gun"]
+position = Vector3(0, 0, -0.68)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_orb")
+surface_material_override/0 = SubResource("StandardMaterial3D_orb")

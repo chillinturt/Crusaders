@@ -1,0 +1,53 @@
+[gd_scene format=3]
+
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_trunk"]
+height = 3.4
+radius = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_trunk"]
+top_radius = 0.32
+bottom_radius = 0.4
+height = 3.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_arm"]
+top_radius = 0.22
+bottom_radius = 0.24
+height = 1.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cactus"]
+albedo_color = Color(0.3, 0.48, 0.25, 1)
+roughness = 0.8
+
+[node name="Cactus" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = SubResource("CylinderShape3D_trunk")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Trunk" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+mesh = SubResource("CylinderMesh_trunk")
+surface_material_override/0 = SubResource("StandardMaterial3D_cactus")
+
+[node name="ArmLeft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 2.2, 0)
+mesh = SubResource("CylinderMesh_arm")
+surface_material_override/0 = SubResource("StandardMaterial3D_cactus")
+
+[node name="ArmLeftJoint" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.35, 1.65, 0)
+mesh = SubResource("CylinderMesh_arm")
+surface_material_override/0 = SubResource("StandardMaterial3D_cactus")
+
+[node name="ArmRight" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 2.6, 0)
+mesh = SubResource("CylinderMesh_arm")
+surface_material_override/0 = SubResource("StandardMaterial3D_cactus")
+
+[node name="ArmRightJoint" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.35, 2.05, 0)
+mesh = SubResource("CylinderMesh_arm")
+surface_material_override/0 = SubResource("StandardMaterial3D_cactus")

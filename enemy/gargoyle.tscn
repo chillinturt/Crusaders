@@ -1,0 +1,475 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://enemy/gargoyle.gd" id="1_script"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_body"]
+radius = 0.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
+resource_local_to_scene = true
+albedo_color = Color(0.84, 0.72, 0.66, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_feather"]
+albedo_color = Color(0.3, 0.17, 0.26, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_feather_tip"]
+albedo_color = Color(0.68, 0.16, 0.13, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hair"]
+albedo_color = Color(0.09, 0.07, 0.09, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_scale"]
+albedo_color = Color(0.72, 0.6, 0.22, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_claw"]
+albedo_color = Color(0.12, 0.1, 0.1, 1)
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gold"]
+albedo_color = Color(0.88, 0.68, 0.22, 1)
+metallic = 0.9
+roughness = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eyes"]
+resource_local_to_scene = true
+albedo_color = Color(1, 0.9, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.8, 0.1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_chest"]
+size = Vector3(0.4, 0.36, 0.24)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bodice"]
+size = Vector3(0.42, 0.2, 0.26)
+
+[sub_resource type="BoxMesh" id="BoxMesh_waist"]
+size = Vector3(0.28, 0.22, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hips"]
+size = Vector3(0.38, 0.22, 0.26)
+
+[sub_resource type="BoxMesh" id="BoxMesh_skirt"]
+size = Vector3(0.44, 0.2, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_neck"]
+size = Vector3(0.12, 0.14, 0.12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_torc"]
+size = Vector3(0.16, 0.04, 0.16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_head"]
+size = Vector3(0.24, 0.3, 0.26)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hair_cap"]
+size = Vector3(0.28, 0.12, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hair"]
+size = Vector3(0.28, 0.55, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_crest"]
+size = Vector3(0.04, 0.26, 0.06)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eyes"]
+size = Vector3(0.18, 0.04, 0.03)
+
+[sub_resource type="PrismMesh" id="PrismMesh_fang"]
+size = Vector3(0.025, 0.05, 0.025)
+
+[sub_resource type="BoxMesh" id="BoxMesh_upper_arm"]
+size = Vector3(0.5, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_forearm"]
+size = Vector3(0.6, 0.12, 0.12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover"]
+size = Vector3(0.5, 0.05, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_feather_mid"]
+size = Vector3(0.6, 0.04, 0.7)
+
+[sub_resource type="BoxMesh" id="BoxMesh_feather_primary"]
+size = Vector3(0.14, 0.04, 0.85)
+
+[sub_resource type="PrismMesh" id="PrismMesh_hand_claw"]
+size = Vector3(0.04, 0.14, 0.04)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tail_feather"]
+size = Vector3(0.12, 0.03, 0.62)
+
+[sub_resource type="BoxMesh" id="BoxMesh_thigh"]
+size = Vector3(0.16, 0.36, 0.17)
+
+[sub_resource type="BoxMesh" id="BoxMesh_shin"]
+size = Vector3(0.08, 0.36, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_foot"]
+size = Vector3(0.16, 0.05, 0.2)
+
+[sub_resource type="PrismMesh" id="PrismMesh_talon"]
+size = Vector3(0.035, 0.14, 0.035)
+
+[node name="Harpy" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 19
+script = ExtResource("1_script")
+reward = 12
+flying = true
+hover_height = 5.0
+hover_above_target = 3.5
+lift_speed = 7.0
+max_health = 150.0
+move_speed = 9.0
+wander_speed = 2.5
+acceleration = 22.0
+knockback_scale = 0.6
+detection_range = 30.0
+lose_range = 55.0
+eye_height = 0.7
+damage = 22.0
+attack_range = 12.0
+windup_time = 0.6
+recover_time = 1.3
+stagger_threshold = 45.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("SphereShape3D_body")
+
+[node name="Visual" type="Node3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.12, 0)
+mesh = SubResource("BoxMesh_chest")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Bodice" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.04, 0)
+mesh = SubResource("BoxMesh_bodice")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Waist" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.87, 0)
+mesh = SubResource("BoxMesh_waist")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Hips" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.7, 0)
+mesh = SubResource("BoxMesh_hips")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Skirt" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.62, 0.01)
+mesh = SubResource("BoxMesh_skirt")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Neck" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.36, 0)
+mesh = SubResource("BoxMesh_neck")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Torc" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.33, 0)
+mesh = SubResource("BoxMesh_torc")
+surface_material_override/0 = SubResource("StandardMaterial3D_gold")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.57, -0.01)
+mesh = SubResource("BoxMesh_head")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="HairCap" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.71, 0.02)
+mesh = SubResource("BoxMesh_hair_cap")
+surface_material_override/0 = SubResource("StandardMaterial3D_hair")
+
+[node name="Hair" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.46, 0.16)
+rotation_degrees = Vector3(10, 0, 0)
+mesh = SubResource("BoxMesh_hair")
+surface_material_override/0 = SubResource("StandardMaterial3D_hair")
+
+[node name="CrestL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.08, 1.82, 0.06)
+rotation_degrees = Vector3(35, 0, -18)
+mesh = SubResource("BoxMesh_crest")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather_tip")
+
+[node name="CrestM" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.84, 0.06)
+rotation_degrees = Vector3(35, 0, 0)
+mesh = SubResource("BoxMesh_crest")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather_tip")
+
+[node name="CrestR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.08, 1.82, 0.06)
+rotation_degrees = Vector3(35, 0, 18)
+mesh = SubResource("BoxMesh_crest")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather_tip")
+
+[node name="Eyes" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 1.6, -0.14)
+mesh = SubResource("BoxMesh_eyes")
+surface_material_override/0 = SubResource("StandardMaterial3D_eyes")
+
+[node name="FangL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.04, 1.47, -0.135)
+rotation_degrees = Vector3(180, 0, 0)
+mesh = SubResource("PrismMesh_fang")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="FangR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.04, 1.47, -0.135)
+rotation_degrees = Vector3(180, 0, 0)
+mesh = SubResource("PrismMesh_fang")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="WingL" type="Node3D" parent="Visual"]
+position = Vector3(-0.2, 1.25, 0)
+
+[node name="UpperArm" type="MeshInstance3D" parent="Visual/WingL"]
+position = Vector3(-0.25, 0, 0)
+mesh = SubResource("BoxMesh_upper_arm")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Forearm" type="MeshInstance3D" parent="Visual/WingL"]
+position = Vector3(-0.78, 0, 0)
+mesh = SubResource("BoxMesh_forearm")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Coverts" type="MeshInstance3D" parent="Visual/WingL"]
+position = Vector3(-0.3, -0.04, 0.2)
+mesh = SubResource("BoxMesh_cover")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Mid" type="MeshInstance3D" parent="Visual/WingL"]
+position = Vector3(-0.78, -0.05, 0.36)
+mesh = SubResource("BoxMesh_feather_mid")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Primary0" type="MeshInstance3D" parent="Visual/WingL"]
+position = Vector3(-1.12, -0.05, 0.42)
+rotation_degrees = Vector3(0, 8, 0)
+mesh = SubResource("BoxMesh_feather_primary")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather_tip")
+
+[node name="Primary1" type="MeshInstance3D" parent="Visual/WingL"]
+position = Vector3(-1.25, -0.05, 0.38)
+rotation_degrees = Vector3(0, 18, 0)
+mesh = SubResource("BoxMesh_feather_primary")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather_tip")
+
+[node name="Primary2" type="MeshInstance3D" parent="Visual/WingL"]
+position = Vector3(-1.38, -0.05, 0.34)
+rotation_degrees = Vector3(0, 28, 0)
+mesh = SubResource("BoxMesh_feather_primary")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather_tip")
+
+[node name="Claw0" type="MeshInstance3D" parent="Visual/WingL"]
+position = Vector3(-1.08, 0.02, -0.08)
+rotation_degrees = Vector3(-90, 0, 0)
+mesh = SubResource("PrismMesh_hand_claw")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="Claw1" type="MeshInstance3D" parent="Visual/WingL"]
+position = Vector3(-1.1, -0.01, -0.08)
+rotation_degrees = Vector3(-90, 0, 0)
+mesh = SubResource("PrismMesh_hand_claw")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="Claw2" type="MeshInstance3D" parent="Visual/WingL"]
+position = Vector3(-1.12, -0.04, -0.08)
+rotation_degrees = Vector3(-90, 0, 0)
+mesh = SubResource("PrismMesh_hand_claw")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="WingR" type="Node3D" parent="Visual"]
+position = Vector3(0.2, 1.25, 0)
+
+[node name="UpperArm" type="MeshInstance3D" parent="Visual/WingR"]
+position = Vector3(0.25, 0, 0)
+mesh = SubResource("BoxMesh_upper_arm")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Forearm" type="MeshInstance3D" parent="Visual/WingR"]
+position = Vector3(0.78, 0, 0)
+mesh = SubResource("BoxMesh_forearm")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Coverts" type="MeshInstance3D" parent="Visual/WingR"]
+position = Vector3(0.3, -0.04, 0.2)
+mesh = SubResource("BoxMesh_cover")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Mid" type="MeshInstance3D" parent="Visual/WingR"]
+position = Vector3(0.78, -0.05, 0.36)
+mesh = SubResource("BoxMesh_feather_mid")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Primary0" type="MeshInstance3D" parent="Visual/WingR"]
+position = Vector3(1.12, -0.05, 0.42)
+rotation_degrees = Vector3(0, -8, 0)
+mesh = SubResource("BoxMesh_feather_primary")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather_tip")
+
+[node name="Primary1" type="MeshInstance3D" parent="Visual/WingR"]
+position = Vector3(1.25, -0.05, 0.38)
+rotation_degrees = Vector3(0, -18, 0)
+mesh = SubResource("BoxMesh_feather_primary")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather_tip")
+
+[node name="Primary2" type="MeshInstance3D" parent="Visual/WingR"]
+position = Vector3(1.38, -0.05, 0.34)
+rotation_degrees = Vector3(0, -28, 0)
+mesh = SubResource("BoxMesh_feather_primary")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather_tip")
+
+[node name="Claw0" type="MeshInstance3D" parent="Visual/WingR"]
+position = Vector3(1.08, 0.02, -0.08)
+rotation_degrees = Vector3(-90, 0, 0)
+mesh = SubResource("PrismMesh_hand_claw")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="Claw1" type="MeshInstance3D" parent="Visual/WingR"]
+position = Vector3(1.1, -0.01, -0.08)
+rotation_degrees = Vector3(-90, 0, 0)
+mesh = SubResource("PrismMesh_hand_claw")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="Claw2" type="MeshInstance3D" parent="Visual/WingR"]
+position = Vector3(1.12, -0.04, -0.08)
+rotation_degrees = Vector3(-90, 0, 0)
+mesh = SubResource("PrismMesh_hand_claw")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="TailRoot" type="Node3D" parent="Visual"]
+position = Vector3(0, 0.68, 0.12)
+rotation_degrees = Vector3(25, 0, 0)
+
+[node name="Feather0" type="MeshInstance3D" parent="Visual/TailRoot"]
+position = Vector3(-0.146, 0, 0.274)
+rotation_degrees = Vector3(0, -28, 0)
+mesh = SubResource("BoxMesh_tail_feather")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather_tip")
+
+[node name="Feather1" type="MeshInstance3D" parent="Visual/TailRoot"]
+position = Vector3(-0.075, 0, 0.301)
+rotation_degrees = Vector3(0, -14, 0)
+mesh = SubResource("BoxMesh_tail_feather")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Feather2" type="MeshInstance3D" parent="Visual/TailRoot"]
+position = Vector3(0, 0, 0.31)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("BoxMesh_tail_feather")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Feather3" type="MeshInstance3D" parent="Visual/TailRoot"]
+position = Vector3(0.075, 0, 0.301)
+rotation_degrees = Vector3(0, 14, 0)
+mesh = SubResource("BoxMesh_tail_feather")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="Feather4" type="MeshInstance3D" parent="Visual/TailRoot"]
+position = Vector3(0.146, 0, 0.274)
+rotation_degrees = Vector3(0, 28, 0)
+mesh = SubResource("BoxMesh_tail_feather")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather_tip")
+
+[node name="Legs" type="Node3D" parent="Visual"]
+position = Vector3(0, 0.62, 0)
+rotation_degrees = Vector3(-31.5, 0, 0)
+
+[node name="ThighL" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(-0.1, -0.16, 0)
+mesh = SubResource("BoxMesh_thigh")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="GarterL" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(-0.1, -0.32, 0)
+scale = Vector3(1.1, 1.5, 1.1)
+mesh = SubResource("BoxMesh_torc")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="ShinL" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(-0.1, -0.5, 0)
+mesh = SubResource("BoxMesh_shin")
+surface_material_override/0 = SubResource("StandardMaterial3D_scale")
+
+[node name="FootL" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(-0.1, -0.68, -0.04)
+mesh = SubResource("BoxMesh_foot")
+surface_material_override/0 = SubResource("StandardMaterial3D_scale")
+
+[node name="TalonL0" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(-0.15, -0.71, -0.16)
+rotation_degrees = Vector3(-120, 0, 0)
+mesh = SubResource("PrismMesh_talon")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="TalonL5" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(-0.1, -0.71, -0.16)
+rotation_degrees = Vector3(-120, 0, 0)
+mesh = SubResource("PrismMesh_talon")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="TalonL10" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(-0.05, -0.71, -0.16)
+rotation_degrees = Vector3(-120, 0, 0)
+mesh = SubResource("PrismMesh_talon")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="TalonBackL" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(-0.1, -0.71, 0.08)
+rotation_degrees = Vector3(120, 0, 0)
+mesh = SubResource("PrismMesh_talon")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="ThighR" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(0.1, -0.16, 0)
+mesh = SubResource("BoxMesh_thigh")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="GarterR" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(0.1, -0.32, 0)
+scale = Vector3(1.1, 1.5, 1.1)
+mesh = SubResource("BoxMesh_torc")
+surface_material_override/0 = SubResource("StandardMaterial3D_feather")
+
+[node name="ShinR" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(0.1, -0.5, 0)
+mesh = SubResource("BoxMesh_shin")
+surface_material_override/0 = SubResource("StandardMaterial3D_scale")
+
+[node name="FootR" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(0.1, -0.68, -0.04)
+mesh = SubResource("BoxMesh_foot")
+surface_material_override/0 = SubResource("StandardMaterial3D_scale")
+
+[node name="TalonR0" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(0.05, -0.71, -0.16)
+rotation_degrees = Vector3(-120, 0, 0)
+mesh = SubResource("PrismMesh_talon")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="TalonR5" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(0.1, -0.71, -0.16)
+rotation_degrees = Vector3(-120, 0, 0)
+mesh = SubResource("PrismMesh_talon")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="TalonR10" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(0.15, -0.71, -0.16)
+rotation_degrees = Vector3(-120, 0, 0)
+mesh = SubResource("PrismMesh_talon")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")
+
+[node name="TalonBackR" type="MeshInstance3D" parent="Visual/Legs"]
+position = Vector3(0.1, -0.71, 0.08)
+rotation_degrees = Vector3(120, 0, 0)
+mesh = SubResource("PrismMesh_talon")
+surface_material_override/0 = SubResource("StandardMaterial3D_claw")

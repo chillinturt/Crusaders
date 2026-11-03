@@ -1,0 +1,64 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/structure.gd" id="1_script"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ramp"]
+points = PackedVector3Array(-1, 0, 2.667, 1, 0, 2.667, -1, 0, -2, 1, 0, -2, -1, 3, -2, 1, 3, -2, -1, 3, -1.333, 1, 3, -1.333)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wood"]
+albedo_color = Color(0.62, 0.45, 0.28, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_step1"]
+size = Vector3(2, 0.5, 0.667)
+
+[sub_resource type="BoxMesh" id="BoxMesh_step2"]
+size = Vector3(2, 1, 0.667)
+
+[sub_resource type="BoxMesh" id="BoxMesh_step3"]
+size = Vector3(2, 1.5, 0.667)
+
+[sub_resource type="BoxMesh" id="BoxMesh_step4"]
+size = Vector3(2, 2, 0.667)
+
+[sub_resource type="BoxMesh" id="BoxMesh_step5"]
+size = Vector3(2, 2.5, 0.667)
+
+[sub_resource type="BoxMesh" id="BoxMesh_step6"]
+size = Vector3(2, 3, 0.667)
+
+[node name="WoodenStairs" type="StaticBody3D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_ramp")
+
+[node name="Step1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 1.667)
+mesh = SubResource("BoxMesh_step1")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Step2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1)
+mesh = SubResource("BoxMesh_step2")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Step3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0.333)
+mesh = SubResource("BoxMesh_step3")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Step4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.333)
+mesh = SubResource("BoxMesh_step4")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Step5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -1)
+mesh = SubResource("BoxMesh_step5")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Step6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1.667)
+mesh = SubResource("BoxMesh_step6")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")

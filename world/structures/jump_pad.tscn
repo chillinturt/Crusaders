@@ -1,0 +1,57 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/jump_pad.gd" id="1_script"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_base"]
+height = 0.2
+radius = 0.9
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_base"]
+top_radius = 0.9
+bottom_radius = 0.95
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_base"]
+albedo_color = Color(0.3, 0.32, 0.36, 1)
+metallic = 0.8
+roughness = 0.4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_glow"]
+top_radius = 0.65
+bottom_radius = 0.65
+height = 0.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glow"]
+albedo_color = Color(0.3, 0.8, 1, 1)
+emission_enabled = true
+emission = Color(0.3, 0.8, 1, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_trigger"]
+height = 0.8
+radius = 1.15
+
+[node name="JumpPad" type="StaticBody3D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("CylinderShape3D_base")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("CylinderMesh_base")
+surface_material_override/0 = SubResource("StandardMaterial3D_base")
+
+[node name="Glow" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21, 0)
+mesh = SubResource("CylinderMesh_glow")
+surface_material_override/0 = SubResource("StandardMaterial3D_glow")
+
+[node name="LaunchArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LaunchArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("CylinderShape3D_trigger")

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Biome" format=3 uid="uid://du0xti7ooxa5t"]
+
+[ext_resource type="Script" uid="uid://c671ucc2g3jk8" path="res://world/biome.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://world/tree.tscn" id="2_tree"]
+
+[resource]
+script = ExtResource("1_script")
+display_name = "Autumn Woods"
+ground_a = Color(0.42, 0.4, 0.2, 1)
+ground_b = Color(0.5, 0.38, 0.2, 1)
+dirt = Color(0.4, 0.3, 0.22, 1)
+rock = Color(0.42, 0.4, 0.38, 1)
+hill_height = 10.0
+tree_scene = ExtResource("2_tree")
+leaf_color = Color(0.78, 0.38, 0.12, 1)
+forest_threshold = 0.0
+sky_top = Color(0.4, 0.5, 0.62, 1)
+sky_horizon = Color(0.8, 0.72, 0.62, 1)
+fog_color = Color(0.78, 0.7, 0.6, 1)
+fog_density = 0.0035
+sun_color = Color(1, 0.86, 0.7, 1)

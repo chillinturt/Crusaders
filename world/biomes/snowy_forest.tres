@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Biome" format=3 uid="uid://cljwqawnadcig"]
+
+[ext_resource type="Script" uid="uid://c671ucc2g3jk8" path="res://world/biome.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://world/tree.tscn" id="2_tree"]
+
+[resource]
+script = ExtResource("1_script")
+display_name = "Snowy Forest"
+ground_a = Color(0.86, 0.88, 0.92, 1)
+ground_b = Color(0.78, 0.82, 0.88, 1)
+dirt = Color(0.5, 0.47, 0.44, 1)
+rock = Color(0.42, 0.43, 0.46, 1)
+peak = Color(0.95, 0.96, 0.98, 1)
+hill_height = 11.0
+tree_scene = ExtResource("2_tree")
+leaf_color = Color(0.13, 0.27, 0.2, 1)
+forest_threshold = 0.05
+sky_top = Color(0.45, 0.55, 0.68, 1)
+sky_horizon = Color(0.82, 0.85, 0.9, 1)
+fog_color = Color(0.84, 0.87, 0.92, 1)
+fog_density = 0.006
+sun_color = Color(0.9, 0.94, 1, 1)
+wall_hue = Vector2(0.05, 0.1)
+wall_saturation = 0.3
+wall_value = 0.42

@@ -1,0 +1,44 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://world/structure.gd" id="1_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall"]
+size = Vector3(4, 3, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall"]
+size = Vector3(4, 3, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_metal"]
+albedo_color = Color(0.42, 0.45, 0.5, 1)
+metallic = 0.8
+roughness = 0.45
+
+[sub_resource type="BoxMesh" id="BoxMesh_beam"]
+size = Vector3(4.1, 0.25, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_beam"]
+albedo_color = Color(0.25, 0.27, 0.3, 1)
+metallic = 0.9
+roughness = 0.35
+
+[node name="MetalWall" type="StaticBody3D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_wall")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("BoxMesh_wall")
+surface_material_override/0 = SubResource("StandardMaterial3D_metal")
+
+[node name="BeamLow" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_beam")
+surface_material_override/0 = SubResource("StandardMaterial3D_beam")
+
+[node name="BeamHigh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
+mesh = SubResource("BoxMesh_beam")
+surface_material_override/0 = SubResource("StandardMaterial3D_beam")

@@ -1,0 +1,692 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_script"]
+[ext_resource type="Script" path="res://player/weapons/gun.gd" id="2_gun"]
+[ext_resource type="Script" path="res://player/weapons/weapon_holder.gd" id="3_holder"]
+[ext_resource type="Script" path="res://player/weapons/melee_weapon.gd" id="4_melee"]
+[ext_resource type="Script" path="res://player/weapons/grenade_weapon.gd" id="5_grenades"]
+[ext_resource type="PackedScene" path="res://player/grenade.tscn" id="6_grenade"]
+[ext_resource type="Script" path="res://player/vitals.gd" id="7_vitals"]
+[ext_resource type="Script" path="res://player/skills.gd" id="8_skills"]
+[ext_resource type="Script" path="res://player/game_menu.gd" id="9_game_menu"]
+[ext_resource type="Script" path="res://player/loadout_screen.gd" id="10_loadout"]
+[ext_resource type="Script" path="res://player/grapple_gear.gd" id="11_grapple"]
+[ext_resource type="Script" path="res://player/weapons/rocket_launcher.gd" id="12_launcher"]
+[ext_resource type="PackedScene" path="res://combat/rocket.tscn" id="13_rocket"]
+[ext_resource type="Script" path="res://player/weapons/building_gun.gd" id="14_building_gun"]
+[ext_resource type="PackedScene" path="res://world/structures/wooden_wall.tscn" id="15_wall"]
+[ext_resource type="PackedScene" path="res://world/structures/wooden_floor.tscn" id="16_floor"]
+[ext_resource type="PackedScene" path="res://world/structures/wooden_stairs.tscn" id="17_stairs"]
+[ext_resource type="PackedScene" path="res://world/structures/jump_pad.tscn" id="18_jump_pad"]
+[ext_resource type="PackedScene" path="res://world/structures/metal_wall.tscn" id="19_metal_wall"]
+[ext_resource type="Script" path="res://player/upgrades.gd" id="20_upgrades"]
+[ext_resource type="Script" path="res://player/weapons/portal_gun.gd" id="21_portal_gun"]
+[ext_resource type="Script" path="res://player/minimap.gd" id="22_minimap"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gun"]
+albedo_color = Color(0.15, 0.16, 0.18, 1)
+metallic = 0.6
+roughness = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wood"]
+albedo_color = Color(0.36, 0.22, 0.12, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_steel"]
+albedo_color = Color(0.75, 0.77, 0.8, 1)
+metallic = 0.9
+roughness = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_launcher"]
+albedo_color = Color(0.3, 0.35, 0.22, 1)
+metallic = 0.4
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tool"]
+albedo_color = Color(0.2, 0.4, 0.7, 1)
+metallic = 0.5
+roughness = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_emitter"]
+albedo_color = Color(0.3, 0.9, 1, 1)
+emission_enabled = true
+emission = Color(0.3, 0.9, 1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_portal_tool"]
+albedo_color = Color(0.85, 0.85, 0.9, 1)
+metallic = 0.3
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_portal_emitter"]
+albedo_color = Color(1, 0.55, 0.1, 1)
+emission_enabled = true
+emission = Color(1, 0.55, 0.1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_rifle_body"]
+size = Vector3(0.08, 0.1, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_grip"]
+size = Vector3(0.06, 0.14, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_shotgun_body"]
+size = Vector3(0.1, 0.1, 0.62)
+
+[sub_resource type="BoxMesh" id="BoxMesh_shotgun_pump"]
+size = Vector3(0.12, 0.07, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sniper_body"]
+size = Vector3(0.07, 0.09, 0.9)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sniper_scope"]
+size = Vector3(0.05, 0.05, 0.26)
+
+[sub_resource type="BoxMesh" id="BoxMesh_revolver_body"]
+size = Vector3(0.06, 0.09, 0.28)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_launcher_tube"]
+top_radius = 0.07
+bottom_radius = 0.07
+height = 0.8
+
+[sub_resource type="SphereMesh" id="SphereMesh_grenade"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grenade"]
+albedo_color = Color(0.25, 0.32, 0.18, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_tool_body"]
+size = Vector3(0.12, 0.14, 0.36)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tool_emitter"]
+size = Vector3(0.07, 0.07, 0.12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_machete_handle"]
+size = Vector3(0.04, 0.05, 0.16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_machete_blade"]
+size = Vector3(0.015, 0.07, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_long_handle"]
+size = Vector3(0.045, 0.045, 0.75)
+
+[sub_resource type="BoxMesh" id="BoxMesh_axe_head"]
+size = Vector3(0.03, 0.26, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hammer_head"]
+size = Vector3(0.3, 0.15, 0.15)
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 2
+collision_mask = 19
+script = ExtResource("1_script")
+
+[node name="Skills" type="Node" parent="."]
+script = ExtResource("8_skills")
+
+[node name="Upgrades" type="Node" parent="."]
+script = ExtResource("20_upgrades")
+
+[node name="Vitals" type="Node" parent="."]
+script = ExtResource("7_vitals")
+
+[node name="GrappleGear" type="Node3D" parent="."]
+script = ExtResource("11_grapple")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+fov = 90.0
+
+[node name="Weapons" type="Node3D" parent="Head/Camera3D"]
+script = ExtResource("3_holder")
+
+[node name="AutoRifle" type="Node3D" parent="Head/Camera3D/Weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, -0.2, -0.45)
+script = ExtResource("2_gun")
+display_name = "Automatic Rifle"
+description = "Fully automatic. 15 damage, 6 shots a second, 25-round magazine. Loses accuracy the longer you hold the trigger, and damage past 12 m."
+magazine_size = 25
+reload_time = 1.8
+
+[node name="Body" type="MeshInstance3D" parent="Head/Camera3D/Weapons/AutoRifle"]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_rifle_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_gun")
+
+[node name="Grip" type="MeshInstance3D" parent="Head/Camera3D/Weapons/AutoRifle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.14)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_grip")
+surface_material_override/0 = SubResource("StandardMaterial3D_gun")
+
+[node name="Muzzle" type="Marker3D" parent="Head/Camera3D/Weapons/AutoRifle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, -0.27)
+
+[node name="Flash" type="OmniLight3D" parent="Head/Camera3D/Weapons/AutoRifle/Muzzle"]
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 4.0
+
+[node name="Shotgun" type="Node3D" parent="Head/Camera3D/Weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, -0.21, -0.48)
+script = ExtResource("2_gun")
+display_name = "Shotgun"
+description = "9 pellets of 12 damage in a tight 3x3 grid: 108 up close, the hardest hit there is at short range, but weak past 20 m. 6 shells."
+magazine_size = 6
+reload_time = 2.2
+damage = 12.0
+pellets = 9
+pellet_grid = Vector2i(3, 3)
+fire_rate = 1.2
+recoil_kick = 0.14
+falloff_start = 6.0
+falloff_end = 22.0
+falloff_min = 0.25
+base_spread = 2.5
+spread_per_shot = 0.0
+max_bloom = 0.0
+airborne_spread = 0.0
+
+[node name="Body" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Shotgun"]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_shotgun_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_gun")
+
+[node name="Pump" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Shotgun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07, -0.15)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_shotgun_pump")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Grip" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Shotgun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.2)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_grip")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Muzzle" type="Marker3D" parent="Head/Camera3D/Weapons/Shotgun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, -0.33)
+
+[node name="Flash" type="OmniLight3D" parent="Head/Camera3D/Weapons/Shotgun/Muzzle"]
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 5.0
+omni_range = 5.0
+
+[node name="Sniper" type="Node3D" parent="Head/Camera3D/Weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, -0.2, -0.55)
+script = ExtResource("2_gun")
+display_name = "Sniper"
+description = "90 damage at any range, and pinpoint accurate while you stand still. Very inaccurate on the move or in the air. 5 rounds, slow to fire and reload."
+magazine_size = 5
+reload_time = 2.6
+damage = 90.0
+fire_rate = 0.9
+recoil_kick = 0.18
+falloff_start = 300.0
+falloff_end = 400.0
+falloff_min = 1.0
+base_spread = 0.05
+spread_per_shot = 0.0
+max_bloom = 0.0
+airborne_spread = 5.0
+moving_spread = 2.5
+
+[node name="Body" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Sniper"]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_sniper_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_gun")
+
+[node name="Scope" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Sniper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09, 0.08)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_sniper_scope")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="Grip" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Sniper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.28)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_grip")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Muzzle" type="Marker3D" parent="Head/Camera3D/Weapons/Sniper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, -0.47)
+
+[node name="Flash" type="OmniLight3D" parent="Head/Camera3D/Weapons/Sniper/Muzzle"]
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 5.0
+omni_range = 5.0
+
+[node name="RocketLauncher" type="Node3D" parent="Head/Camera3D/Weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.22, -0.4)
+script = ExtResource("12_launcher")
+display_name = "Rocket Launcher"
+description = "Explosive rockets: 90 damage in a 4 m blast that walls block. Hurts you too, so aim at your feet and jump to rocket jump. 3 rockets per reload."
+deploy_time = 0.5
+magazine_size = 3
+reload_time = 2.6
+rocket_scene = ExtResource("13_rocket")
+
+[node name="Tube" type="MeshInstance3D" parent="Head/Camera3D/Weapons/RocketLauncher"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, -0.1)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_launcher_tube")
+surface_material_override/0 = SubResource("StandardMaterial3D_launcher")
+
+[node name="Grip" type="MeshInstance3D" parent="Head/Camera3D/Weapons/RocketLauncher"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12, 0.1)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_grip")
+surface_material_override/0 = SubResource("StandardMaterial3D_gun")
+
+[node name="Muzzle" type="Marker3D" parent="Head/Camera3D/Weapons/RocketLauncher"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.55)
+
+[node name="Revolver" type="Node3D" parent="Head/Camera3D/Weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.2, -0.4)
+script = ExtResource("2_gun")
+display_name = "Revolver"
+description = "45 damage per shot, accurate, quick to draw and reload. 6 rounds. Rapid fire throws your aim off."
+slot = 1
+deploy_time = 0.2
+magazine_size = 6
+reload_time = 1.6
+damage = 45.0
+fire_rate = 2.5
+recoil_kick = 0.1
+falloff_start = 18.0
+falloff_end = 55.0
+falloff_min = 0.5
+base_spread = 0.3
+spread_per_shot = 1.0
+airborne_spread = 1.0
+
+[node name="Body" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Revolver"]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_revolver_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="Grip" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Revolver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.1)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_grip")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Muzzle" type="Marker3D" parent="Head/Camera3D/Weapons/Revolver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, -0.16)
+
+[node name="Flash" type="OmniLight3D" parent="Head/Camera3D/Weapons/Revolver/Muzzle"]
+light_color = Color(1, 0.8, 0.4, 1)
+light_energy = 3.0
+omni_range = 4.0
+
+[node name="Grenades" type="Node3D" parent="Head/Camera3D/Weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.2, -0.4)
+script = ExtResource("5_grenades")
+display_name = "Grenades"
+description = "Thrown explosives that bounce and inherit your momentum: 90 damage in a 6 m blast after 2.5 s. Throw 2, then re-arm. One at your feet is a grenade jump."
+slot = 1
+deploy_time = 0.25
+magazine_size = 2
+reload_time = 3.0
+grenade_scene = ExtResource("6_grenade")
+
+[node name="Model" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Grenades"]
+cast_shadow = 0
+mesh = SubResource("SphereMesh_grenade")
+surface_material_override/0 = SubResource("StandardMaterial3D_grenade")
+
+[node name="BuildingGun" type="Node3D" parent="Head/Camera3D/Weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, -0.22, -0.42)
+script = ExtResource("14_building_gun")
+display_name = "Building Gun"
+description = "BUILD mode: place walls, floors, stairs and jump pads for build points that recharge over time (R cycles the piece). RMB switches to LASER mode: a beam that burns enemies and tears down built structures."
+slot = 2
+structure_scenes = Array[PackedScene]([ExtResource("15_wall"), ExtResource("16_floor"), ExtResource("17_stairs"), ExtResource("18_jump_pad"), ExtResource("19_metal_wall")])
+structure_names = PackedStringArray("Wall", "Floor", "Stairs", "Jump Pad", "Metal Wall")
+structure_costs = PackedFloat32Array(20, 20, 35, 40, 35)
+
+[node name="Body" type="MeshInstance3D" parent="Head/Camera3D/Weapons/BuildingGun"]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_tool_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_tool")
+
+[node name="Emitter" type="MeshInstance3D" parent="Head/Camera3D/Weapons/BuildingGun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.22)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_tool_emitter")
+surface_material_override/0 = SubResource("StandardMaterial3D_emitter")
+
+[node name="Grip" type="MeshInstance3D" parent="Head/Camera3D/Weapons/BuildingGun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.13, 0.1)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_grip")
+surface_material_override/0 = SubResource("StandardMaterial3D_gun")
+
+[node name="Muzzle" type="Marker3D" parent="Head/Camera3D/Weapons/BuildingGun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
+
+[node name="PortalGun" type="Node3D" parent="Head/Camera3D/Weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, -0.22, -0.42)
+script = ExtResource("21_portal_gun")
+display_name = "Portal Gun"
+description = "Opens a wormhole. LMB stands the entrance on the ground where you aim, LMB again places the exit. Aim at a wall near its top (or just over the edge) to put one on a roof or ledge above you. You see through it, and you, enemies and shots pass through either way. RMB closes it."
+slot = 2
+
+[node name="Body" type="MeshInstance3D" parent="Head/Camera3D/Weapons/PortalGun"]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_tool_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_portal_tool")
+
+[node name="Emitter" type="MeshInstance3D" parent="Head/Camera3D/Weapons/PortalGun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.22)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_tool_emitter")
+surface_material_override/0 = SubResource("StandardMaterial3D_portal_emitter")
+
+[node name="Grip" type="MeshInstance3D" parent="Head/Camera3D/Weapons/PortalGun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.13, 0.1)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_grip")
+surface_material_override/0 = SubResource("StandardMaterial3D_gun")
+
+[node name="Machete" type="Node3D" parent="Head/Camera3D/Weapons"]
+transform = Transform3D(1, 0, 0, 0, 0.955336, -0.29552, 0, 0.29552, 0.955336, 0.3, -0.28, -0.45)
+script = ExtResource("4_melee")
+display_name = "Machete"
+description = "Crowd cutter: fast, wide slashes that alternate left and right and hit everything in front of you for 28. Too light to interrupt attacks. The easiest deflects, and the biggest bonus for swinging at speed."
+slot = 3
+deploy_time = 0.2
+damage = 28.0
+windup = 0.06
+active_time = 0.12
+recovery = 0.2
+reach = 2.3
+thickness = 0.7
+height_slack = 1.4
+arcs = PackedVector4Array(62, 8, -62, -22, -62, 8, 62, -22)
+swing_roll = 75.0
+push_force = 2.0
+speed_damage_bonus = 0.08
+deflect_bonus = 1.0
+
+[node name="Handle" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Machete"]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_machete_handle")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Blade" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Machete"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.33)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_machete_blade")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="BattleAxe" type="Node3D" parent="Head/Camera3D/Weapons"]
+transform = Transform3D(1, 0, 0, 0, 0.955336, -0.29552, 0, 0.29552, 0.955336, 0.31, -0.29, -0.42)
+script = ExtResource("4_melee")
+display_name = "Battle Axe"
+description = "Duelist: a long diagonal chop for 75, with the longest reach. Interrupts attacks, and deals +50% to enemies caught winding up or recovering. Narrow: aim it."
+slot = 3
+deploy_time = 0.3
+damage = 75.0
+windup = 0.2
+active_time = 0.14
+recovery = 0.42
+reach = 3.0
+thickness = 0.45
+height_slack = 0.4
+arcs = PackedVector4Array(14, 55, -10, -45)
+swing_roll = 25.0
+push_force = 6.0
+punish_multiplier = 1.5
+
+[node name="Handle" type="MeshInstance3D" parent="Head/Camera3D/Weapons/BattleAxe"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_long_handle")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Blade" type="MeshInstance3D" parent="Head/Camera3D/Weapons/BattleAxe"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, -0.55)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_axe_head")
+surface_material_override/0 = SubResource("StandardMaterial3D_steel")
+
+[node name="Sledgehammer" type="Node3D" parent="Head/Camera3D/Weapons"]
+transform = Transform3D(1, 0, 0, 0, 0.955336, -0.29552, 0, 0.29552, 0.955336, 0.32, -0.3, -0.4)
+script = ExtResource("4_melee")
+display_name = "Sledgehammer"
+description = "Ground pounder: a slow overhead smash for 110. Where it strikes the ground a shockwave hurts and launches every enemy within 4 m, and bounces you into the air (slam the ground for a hammer jump)."
+slot = 3
+deploy_time = 0.4
+damage = 110.0
+windup = 0.4
+active_time = 0.16
+recovery = 0.6
+reach = 2.7
+thickness = 0.9
+height_slack = 0.6
+arcs = PackedVector4Array(0, 70, 0, -60)
+swing_roll = 0.0
+push_force = 10.0
+slam_radius = 4.0
+slam_damage = 0.5
+slam_force = 12.0
+slam_hop = 7.0
+
+[node name="Handle" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Sledgehammer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_long_handle")
+surface_material_override/0 = SubResource("StandardMaterial3D_wood")
+
+[node name="Head" type="MeshInstance3D" parent="Head/Camera3D/Weapons/Sledgehammer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_hammer_head")
+surface_material_override/0 = SubResource("StandardMaterial3D_gun")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="DamageFlash" type="ColorRect" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 0)
+
+[node name="SpeedLabel" type="Label" parent="HUD"]
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 400.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 28
+text = "0.0 m/s"
+
+[node name="Help" type="Label" parent="HUD"]
+offset_left = 16.0
+offset_top = 50.0
+offset_right = 1100.0
+offset_bottom = 76.0
+modulate = Color(1, 1, 1, 0.6)
+text = "WASD move · Space jump · LMB attack · R reload · 1-4/wheel/Q weapons · RMB grapple (F/C reel) or alt mode · Shift gas · E interact · Tab skills · M map zoom · T unstuck"
+
+[node name="Minimap" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -204.0
+offset_top = 84.0
+offset_right = -16.0
+offset_bottom = 272.0
+grow_horizontal = 0
+mouse_filter = 2
+script = ExtResource("22_minimap")
+
+[node name="StatsLabel" type="Label" parent="HUD"]
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 400.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 20
+text = "Kills: 0   Deaths: 0"
+
+[node name="RegionLabel" type="Label" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 12.0
+offset_right = 300.0
+offset_bottom = 44.0
+grow_horizontal = 2
+modulate = Color(1, 1, 1, 0.8)
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="ObjectiveLabel" type="Label" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 80.0
+offset_right = 400.0
+offset_bottom = 108.0
+grow_horizontal = 2
+modulate = Color(1, 0.85, 0.5, 0.9)
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="CoinsLabel" type="Label" parent="HUD"]
+offset_left = 16.0
+offset_top = 108.0
+offset_right = 400.0
+offset_bottom = 138.0
+modulate = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 22
+text = "0 coins"
+
+[node name="HealthLabel" type="Label" parent="HUD"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -72.0
+offset_right = 400.0
+offset_bottom = -16.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "+ 100"
+
+[node name="StaminaBar" type="ProgressBar" parent="HUD"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -90.0
+offset_right = 244.0
+offset_bottom = -78.0
+grow_vertical = 0
+mouse_filter = 2
+value = 100.0
+show_percentage = false
+
+[node name="GasBar" type="ProgressBar" parent="HUD"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -106.0
+offset_right = 244.0
+offset_bottom = -96.0
+grow_vertical = 0
+mouse_filter = 2
+value = 100.0
+show_percentage = false
+
+[node name="PromptLabel" type="Label" parent="HUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = 40.0
+offset_right = 300.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="FeedLabel" type="Label" parent="HUD"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -60.0
+offset_right = -24.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 2
+
+[node name="WeaponLabel" type="Label" parent="HUD"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -520.0
+offset_top = -100.0
+offset_right = -24.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Crosshair" type="ColorRect" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+mouse_filter = 2
+
+[node name="GameMenu" type="Control" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_game_menu")
+
+[node name="LoadoutScreen" type="Control" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_loadout")
